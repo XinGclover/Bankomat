@@ -3,7 +3,7 @@
 Java18-OOJ
  */
 
-package bankomat;
+package bankomat.view;
 
 /**
  *

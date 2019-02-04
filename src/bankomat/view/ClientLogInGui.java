@@ -1,3 +1,5 @@
+package bankomat.view;
+
 /*
  *  
 Java18-OOJ
