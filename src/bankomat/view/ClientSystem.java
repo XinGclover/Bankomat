@@ -5,13 +5,31 @@ Java18-OOJ
 
 package bankomat.view;
 
+import bankomat.Controller;
+import bankomat.model.Account;
+import bankomat.model.AccountHistory;
 import bankomat.model.Client;
+import bankomat.model.Loan;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author xingao
  */
 public class ClientSystem extends javax.swing.JPanel {
+    
+    Client currentclient;
+    Controller con=new Controller();
+    List<Account> currentaccounts;
+    List<Loan> currentloans;
+    List<AccountHistory> historylist;
+    int selectAccountIndex;
+    Account selectedAccount;
+    int accountHistoryIndex;
+    Account accountHistory;
+    
+    
 
     /** Creates new form ClientSystem */
     public ClientSystem() {
@@ -20,6 +38,26 @@ public class ClientSystem extends javax.swing.JPanel {
 
     public ClientSystem(Client c){
         initComponents();
+        this.currentclient=c;
+        this.currentaccounts=con.loadAccountsforClient(c);
+        this.currentloans=con.loadLoansforClient(c);
+        
+        DefaultListModel dlm=new DefaultListModel();
+        for(Account a:currentaccounts){
+           dlm.addElement(a.AccountInfo()); 
+           jAccounts.addItem(String.valueOf(a.getNumber()));
+        }
+        jList1.setModel(dlm);
+        jAccounts.setSelectedIndex(-1);
+        
+        DefaultListModel dlm2=new DefaultListModel();
+        for(Loan l:currentloans){
+            dlm2.addElement(l.loanInfo());
+        }
+        jList2.setModel(dlm2);
+        
+        
+        
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -49,25 +87,32 @@ public class ClientSystem extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jPanel5 = new javax.swing.JPanel();
-        accounts = new javax.swing.JComboBox<>();
+        jAccounts = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         accountID = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList3 = new javax.swing.JList<>();
+        jButton5 = new javax.swing.JButton();
 
         jLabel2.setText("Please choose an account first ");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Select");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Confirm");
+        jButton2.setText("Reset");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,12 +154,31 @@ public class ClientSystem extends javax.swing.JPanel {
         jLabel3.setText("Current Account");
 
         accountdetail.setText("jLabel4");
+        accountdetail.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                accountdetailAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jLabel5.setText("Withdraw");
 
         jButton3.setText("Confirm");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Reset");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -168,11 +232,7 @@ public class ClientSystem extends javax.swing.JPanel {
 
         jLabel6.setText("Current Loans");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jList2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -203,16 +263,37 @@ public class ClientSystem extends javax.swing.JPanel {
 
         jLabel1.setText("Switch Account");
 
-        jLabel7.setText("Transcation History showing for AccountID ");
+        jLabel7.setText("Transcation History showing for Accountnumber ");
 
         accountID.setText("jLabel8");
+        accountID.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                accountIDAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jList3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList3.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jList3AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
         });
         jScrollPane3.setViewportView(jList3);
+
+        jButton5.setText("Select");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -221,15 +302,20 @@ public class ClientSystem extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(30, 30, 30)
+                .addGap(47, 47, 47)
                 .addComponent(accountID)
-                .addGap(55, 55, 55))
+                .addGap(38, 38, 38))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(accounts, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -243,12 +329,15 @@ public class ClientSystem extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(accounts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(70, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addGap(93, 93, 93))))
         );
 
         jTabbedPane2.addTab("Transaction History", jPanel5);
@@ -270,15 +359,59 @@ public class ClientSystem extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        selectAccountIndex=jList1.getSelectedIndex();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jList1.setSelectedIndex(-1);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void accountdetailAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_accountdetailAncestorAdded
+        selectedAccount=currentaccounts.get(selectAccountIndex-1);
+        selectedAccount.AccountInfo();     // TODO add your handling code here:
+    }//GEN-LAST:event_accountdetailAncestorAdded
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jTextField1.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        con.clientWithdraw(currentclient, selectedAccount.getId(), Integer.valueOf(jTextField1.getText()));       
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        accountHistoryIndex=jAccounts.getSelectedIndex();
+        accountHistory=currentaccounts.get(accountHistoryIndex-1);       // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jList3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList3AncestorAdded
+        historylist=con.loadHistorysforAccount(accountHistory);
+        DefaultListModel dlm=new DefaultListModel();
+        for(AccountHistory ah:historylist){
+            dlm.addElement(ah.accountHistoryInfo());  //History för a
+        }
+        jList3.setModel(dlm);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jList3AncestorAdded
+
+    private void accountIDAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_accountIDAncestorAdded
+       // jAccounts.getSelectedItem().toString(); 
+        accountHistory.getNumber();       // TODO add your handling code here:
+    }//GEN-LAST:event_accountIDAncestorAdded
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accountID;
     private javax.swing.JLabel accountdetail;
-    private javax.swing.JComboBox<String> accounts;
+    private javax.swing.JComboBox<String> jAccounts;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

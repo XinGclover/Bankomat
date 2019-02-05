@@ -2,7 +2,9 @@ package bankomat;
 
 
 import bankomat.model.Account;
+import bankomat.model.AccountHistory;
 import bankomat.model.Client;
+import bankomat.model.Loan;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,4 +41,19 @@ public class Repository {
          List<Account> accounts = new ArrayList<>();
          return accounts;
      }
+     
+     public void callClientWithdraw(int clientID, int accountID, int amount){
+         
+     }
+     
+     public List<Loan> getAllLoan(){
+         List<Loan> loans = new ArrayList<>();
+         return loans;
+     }
+     
+     public List<AccountHistory> getAllHistory(){
+         List<AccountHistory> historys= new ArrayList<>();
+         return historys;
+     }
+     
 }

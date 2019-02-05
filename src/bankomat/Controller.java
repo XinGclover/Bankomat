@@ -5,7 +5,9 @@ Java18-OOJ
 package bankomat;
 
 import bankomat.model.Account;
+import bankomat.model.AccountHistory;
 import bankomat.model.Client;
+import bankomat.model.Loan;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,9 +40,25 @@ public class Controller {
    } 
    
    
-   public Map<Integer,Account> loadAccountsforClient(Client c){
-       Map<Integer,Account> accountsMap=repo.getAllAccount().stream().filter(a->a.getId()=c.getId()).
-               collect(Collectors.toMap(Account::getId, Account->Account));
+   public List<Account> loadAccountsforClient(Client c){
+       List<Account> accountsofClient=repo.getAllAccount().stream().filter(a->a.getClientID()==c.getId()).
+               collect(Collectors.toList());
+       return accountsofClient;
    }
    
+   public void clientWithdraw(Client c,int accountID,int amount){
+       repo.callClientWithdraw(c.getId(), accountID, amount);
+   }
+   
+   public List<Loan> loadLoansforClient(Client c){
+       List<Loan> loansofClient=repo.getAllLoan().stream().filter(a->a.getClientID()==c.getId()).
+               collect(Collectors.toList());
+       return loansofClient;
+   }
+   
+   public List<AccountHistory> loadHistorysforAccount(Account a){
+       List<AccountHistory> historysofAccount= repo.getAllHistory().stream().filter(s->s.getAccountID()==a.getId()).
+               collect(Collectors.toList());
+       return historysofAccount;
+   }
 }
