@@ -4,11 +4,16 @@ Java18-OOJ
  */
 package bankomat.view;
 
+import bankomat.Controller;
+import bankomat.model.Employee;
+
 /**
  *
  * @author xingao
  */
 public class EmployeeLogin extends javax.swing.JPanel {
+    
+    Controller con=new Controller();
 
     /**
      * Creates new form EmployeeLogin
@@ -28,14 +33,19 @@ public class EmployeeLogin extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Confirm = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jLabel1.setText("Employee Number");
 
         jTextField1.setText("jTextField1");
 
-        jButton1.setText("Confirm");
+        Confirm.setText("Confirm");
+        Confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfirmActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Reset");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -52,7 +62,7 @@ public class EmployeeLogin extends javax.swing.JPanel {
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(Confirm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(69, 69, 69))
@@ -73,19 +83,26 @@ public class EmployeeLogin extends javax.swing.JPanel {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(Confirm)
                     .addComponent(jButton2))
                 .addGap(64, 64, 64))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        jTextField1.setText("");        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
+        Employee e= con.EmployeeLogin(jTextField1.getText());
+        if(e!=null){
+            System.out.println("Welcome");
+            new EmployeeSystemGui().setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_ConfirmActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Confirm;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;

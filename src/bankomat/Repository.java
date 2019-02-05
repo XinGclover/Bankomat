@@ -4,6 +4,7 @@ package bankomat;
 import bankomat.model.Account;
 import bankomat.model.AccountHistory;
 import bankomat.model.Client;
+import bankomat.model.Employee;
 import bankomat.model.Loan;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -54,6 +55,19 @@ public class Repository {
      public List<AccountHistory> getAllHistory(){
          List<AccountHistory> historys= new ArrayList<>();
          return historys;
+     }
+     
+     public List<Employee> getAllEmployees(){
+         List<Employee> employees= new ArrayList<>();
+         return employees;
+     }
+     
+     public void callCreateClient(int employeeID, int clientID){
+         
+     }
+     
+     public void callUpdateInfo(int clientID,int PIN,String name,String address,String telephont){
+         
      }
      
 }

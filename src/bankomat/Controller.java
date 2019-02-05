@@ -7,6 +7,7 @@ package bankomat;
 import bankomat.model.Account;
 import bankomat.model.AccountHistory;
 import bankomat.model.Client;
+import bankomat.model.Employee;
 import bankomat.model.Loan;
 import java.util.List;
 import java.util.Map;
@@ -61,4 +62,38 @@ public class Controller {
                collect(Collectors.toList());
        return historysofAccount;
    }
+   
+   public Employee EmployeeLogin (String number){
+      List<Employee> employees=repo.getAllEmployees();
+       for(Employee e:employees){
+           if(number.equals(e.getNumber())){
+              return e;  
+           }
+           else
+               JOptionPane.showMessageDialog(null,"Invalid Number.");
+           }          
+       return null;
+   } 
+   
+   
+   public Client checkClientNumber(String personnumber){
+       List<Client> clients=repo.getAllClients();
+       for(Client c:clients){
+           if(personnumber.equals(c.getPersonnumber())){
+               return c;
+           }
+           
+       }
+       return null;  
+   
+   }
+   
+   public void createClient(Employee e,Client c){
+       repo.callCreateClient(e.getId(), c.getPersonnumber());
+   }
+   
+   public void updateInfo(Client c,int PIN,String name,String address,String telephont){
+       repo.callUpdateInfo(c.getId(), PIN, name, address, telephont);
+   }
+   
 }
