@@ -5,6 +5,8 @@ Java18-OOJ
 
 package bankomat.view;
 
+import bankomat.model.Client;
+
 /**
  *
  * @author xingao
@@ -16,6 +18,9 @@ public class ClientSystem extends javax.swing.JPanel {
         initComponents();
     }
 
+    public ClientSystem(Client c){
+        initComponents();
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

@@ -41,7 +41,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPasswordField1" min="-2" pref="164" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="164" max="-2" attributes="0"/>
+                          <Component id="usernumber" min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -55,7 +55,7 @@
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="usernumber" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -83,7 +83,7 @@
         <Property name="text" type="java.lang.String" value="PIN"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="usernumber">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
