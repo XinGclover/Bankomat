@@ -31,23 +31,23 @@ public class Bankomat {
 //        });
        
         Repository rep = new Repository();
-        Client client = new Client();
-        Account account = new Account();
-        Loan loan = new Loan();
-        
-        rep.getAllClients();
-        System.out.println("Clients:");
-        client.printClients();
-        
-        rep.getAllAccounts();
-        System.out.println("\nAccounts:");
-        account.printAccounts();
-        
-        rep.getAllLoans();
-        System.out.println("\nLoans:");
-        loan.printLoans();
-        
-        
+//        Client client = new Client();
+//        Account account = new Account();
+//        Loan loan = new Loan();
+//        
+//        rep.getAllClients();
+//        System.out.println("Clients:");
+//        client.printClients();
+//        
+//        rep.getAllAccounts();
+//        System.out.println("\nAccounts:");
+//        account.printAccounts();
+//        
+//        rep.getAllLoans();
+//        System.out.println("\nLoans:");
+//        loan.printLoans();
+//        
+        System.out.println(rep.getAllClients().size());
 
 
     }

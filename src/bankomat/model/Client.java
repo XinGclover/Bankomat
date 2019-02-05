@@ -21,6 +21,17 @@ public class Client {
     
     private static Map<Integer, Client> clients;
     
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     
     public Client (int personnumber, int PIN, String name, String address, String telephone){
         this.personnumber = personnumber;

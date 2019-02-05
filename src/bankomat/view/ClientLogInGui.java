@@ -2,6 +2,7 @@ package bankomat.view;
 
 import bankomat.Controller;
 import bankomat.model.Client;
+import javax.swing.JOptionPane;
 
 /*
  *  
@@ -104,10 +105,13 @@ public class ClientLogInGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Client c=con.checkLogin(usernumber.getText(), jPasswordField1.getText());
-        if(c!=null)
+        Client c=con.checkLogin(Integer.valueOf(usernumber.getText()), Integer.valueOf(jPasswordField1.getText()));
+        if(c!=null){
             System.out.println("Successful");
             new ClientSystem(c).setVisible(true);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Invalid Login details.");
         // TODO add your handling code here:
        
     }//GEN-LAST:event_jButton1ActionPerformed
