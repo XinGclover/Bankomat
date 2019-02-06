@@ -30,10 +30,27 @@ public class Controller {
    
    
    public List<Account> loadAccountsforClient(Client c){
-       List<Account> accountsofClient=(List<Account>) repo.getAllAccounts().values();
-            
+       List<Account> accountsofClient=repo.getAllAccounts().stream().filter(a->a.getClientID()==c.getId()).
+               collect(Collectors.toList());
        return accountsofClient;
    }
+   
+   public void clientWithdraw(Client c,int accountID,int amount){
+       repo.callClientWithdraw(c.getId(), accountID, amount);
+   }
+   
+   public List<Loan> loadLoansforClient(Client c){
+       List<Loan> loansofClient=repo.getAllLoan().stream().filter(a->a.getClientID()==c.getId()).
+               collect(Collectors.toList());
+       return loansofClient;
+   }
+   
+   public List<AccountHistory> loadHistorysforAccount(Account a){
+       List<AccountHistory> historysofAccount= repo.getAllHistory().stream().filter(s->s.getAccountID()==a.getId()).
+               collect(Collectors.toList());
+       return historysofAccount;
+   }
+   
    
    
 }
