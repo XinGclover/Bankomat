@@ -3,21 +3,19 @@ package bankomat;
 
 import bankomat.model.Account;
 import bankomat.model.Client;
+import bankomat.model.Employee;
 import bankomat.model.HandleAccount;
+import bankomat.model.HandleLoan;
 import bankomat.model.Loan;
 import java.io.FileInputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 
@@ -90,6 +88,30 @@ public class Repository {
     }
     
     
+    public List<Employee> getAllEmployees(){
+        Employee employee = new Employee();
+        List<Employee> employees = new ArrayList();
+        
+        try(Connection con = DriverManager.getConnection(p.getProperty("connectionString"), 
+            p.getProperty("name"), p.getProperty("password"));
+            Statement stmt = con.createStatement();){
+            
+            ResultSet rs = stmt.executeQuery("select idAnstalld, number, "
+                    + "name from Anstalld");
+            
+            while(rs.next()){
+                employee = new Employee(rs.getInt("idAnstalld"), rs.getInt("number"), rs.getString("name"));
+                employees.add(employee);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        employee.setEmployees(employees);
+        return employees;
+    }
+    
+    
     public List<Account> getAllAccounts(){
         Account account = new Account();
         List<Account> accounts = new ArrayList();
@@ -155,19 +177,6 @@ public class Repository {
         return loans;
     }
     
-    /*
-    CREATE TABLE hanteraKonto (
-idhantering int(11) NOT NULL AUTO_INCREMENT,
-kontoId int(11) NOT NULL,
-sattainsaldo int(11) DEFAULT NULL,
-tautsaldo int(11) DEFAULT NULL,
-rantesats decimal(3,1) DEFAULT NULL,
-skapa tinyint(4) DEFAULT NULL,
-avsluta tinyint(4) DEFAULT NULL,
-anstalldId int(11) DEFAULT NULL,
-kundId int(11) DEFAULT NULL,
-date datetime NOT NULL,
-    */
     
     public List<HandleAccount> getAllHandleAccounts(){
         HandleAccount handleAccount = new HandleAccount();
@@ -194,10 +203,6 @@ date datetime NOT NULL,
                 } else
                     skapa = false;
                 
-                // (int id, int accountId, int depositAmount, int withdrawalAmount, 
-            // double rate, Date creationDate, boolean closedAccount,
-            // int employeeId, int clientId)
-                
                 handleAccount = new HandleAccount(rs.getInt("idhantering"), 
                         rs.getInt("kontoId"), 
                         rs.getInt("sattainsaldo"),
@@ -218,6 +223,40 @@ date datetime NOT NULL,
         handleAccount.setHistoryOfAccounts(historyOfAccounts);
         return historyOfAccounts;
     }
+    
+    
+    public List<HandleLoan> getAllHandleLoans(){
+        HandleLoan handleLoan = new HandleLoan();
+        List<HandleLoan> handleLoans = new ArrayList();
+        boolean isGranted;
+        
+        try(Connection con = DriverManager.getConnection(p.getProperty("connectionString"), 
+            p.getProperty("name"), p.getProperty("password"));
+            Statement stmt = con.createStatement();){
+            
+            ResultSet rs = stmt.executeQuery("select idhanteraLan, lanId, "
+                    + "bevilja, lanrantesats, betalplan, anstalldId, date from hanteraLan");
+            
+            while(rs.next()){
+
+                if (rs.getInt("bevilja") == 1){
+                    isGranted = true;
+                } else
+                    isGranted = false;
+                
+                handleLoan = new HandleLoan(rs.getInt("idhanteraLan"), rs.getInt("lanId"), isGranted, 
+                        rs.getDouble("lanRantesats"), rs.getDate("betalplan"), rs.getInt("anstalldId"), 
+                        rs.getDate("date"));
+                handleLoans.add(handleLoan);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        handleLoan.setHandleLoans(handleLoans);
+        return handleLoans;
+    }
+    
     
     
     

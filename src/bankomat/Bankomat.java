@@ -7,7 +7,9 @@ package bankomat;
 
 import bankomat.model.Account;
 import bankomat.model.Client;
+import bankomat.model.Employee;
 import bankomat.model.HandleAccount;
+import bankomat.model.HandleLoan;
 import bankomat.model.Loan;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +35,19 @@ public class Bankomat {
        
         Repository rep = new Repository();
         Client client = new Client();
+        Employee employee = new Employee();
         Account account = new Account();
         Loan loan = new Loan();
         HandleAccount handleAccount = new HandleAccount();
+        HandleLoan handleLoan = new HandleLoan();
         
         rep.getAllClients();
         System.out.println("Clients:");
         client.printClients();
+        
+        rep.getAllEmployees();
+        System.out.println("\nEmployees:");
+        employee.printEmployees();
         
         rep.getAllAccounts();
         System.out.println("\nAccounts:");
@@ -49,13 +57,15 @@ public class Bankomat {
         System.out.println("\nLoans:");
         loan.printLoans();
         
-        rep.getAllLoans();
-        System.out.println("\nLoans:");
-        loan.printLoans();
-        
         rep.getAllHandleAccounts();
         System.out.println("\nHandleAccounts:");
         handleAccount.printHandleAccount();
+        
+        // printHandleLoans()
+        rep.getAllHandleLoans();
+        System.out.println("\nHandleLoans:");
+        handleLoan.printHandleLoans();
+        
         
         System.out.println("\nprintAccountTest:");
        Account aTest;
