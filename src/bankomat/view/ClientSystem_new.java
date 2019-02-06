@@ -386,7 +386,8 @@ public class ClientSystem_new extends javax.swing.JFrame {
         for(HandleAccount ah:historylist){
             dlm.addElement(ah.Info());  //History för a
         }
-        jList3.setModel(dlm);// TODO add your handling code here:
+        jList3.setModel(dlm);
+        jLabel8.setText(String.valueOf(accountHistory.getNumber()));// TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jList3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList3AncestorAdded

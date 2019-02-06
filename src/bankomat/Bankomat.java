@@ -38,7 +38,7 @@ public class Bankomat {
         HandleAccount handleAccount = new HandleAccount();
         Controller con=new Controller();
         
-        repositoryTest rt=new repositoryTest();
+       
 //        System.out.println(rt.getAllCustomers().size());
 //        System.out.println(rt.getAllClients().size());
 //        System.out.println(rep.getAllAccounts().size());
