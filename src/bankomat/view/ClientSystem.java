@@ -9,6 +9,7 @@ import bankomat.Controller;
 import bankomat.model.Account;
 import bankomat.model.AccountHistory;
 import bankomat.model.Client;
+import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -23,7 +24,7 @@ public class ClientSystem extends javax.swing.JPanel {
     Controller con=new Controller();
     List<Account> currentaccounts;
     List<Loan> currentloans;
-    List<AccountHistory> historylist;
+    List<HandleAccount> historylist;
     int selectAccountIndex;
     Account selectedAccount;
     int accountHistoryIndex;
@@ -396,8 +397,8 @@ public class ClientSystem extends javax.swing.JPanel {
     private void jList3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jList3AncestorAdded
         historylist=con.loadHistorysforAccount(accountHistory);
         DefaultListModel dlm=new DefaultListModel();
-        for(AccountHistory ah:historylist){
-            dlm.addElement(ah.accountHistoryInfo());  //History för a
+        for(HandleAccount ah:historylist){
+            dlm.addElement(ah.Info());  //History för a
         }
         jList3.setModel(dlm);
         // TODO add your handling code here:

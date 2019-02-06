@@ -1,24 +1,41 @@
-/*
- *  
-Java18-OOJ
- */
+
+
 package bankomat.model;
 
-/**
- *
- * @author xingao
- */
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class Client {
     
+    private int id;
     private int personnumber;
-    
     private int PIN;
-    
-    private int Id;
-    
     private String name;
-    
     private String address;
+    private String telephone;
+    private static List<Client> clients;
+    
+    
+    public Client (int id, int personnumber, int PIN, String name, String address, String telephone){
+        this.id = id;
+        this.personnumber = personnumber;
+        this.PIN = PIN;
+        this.name = name;
+        this.address = address;
+        this.telephone = telephone;   
+    }
+    
+    public Client(int personnumber, int PIN) {
+        this.personnumber = personnumber;
+        this.PIN = PIN;
+    }
+    
+    public Client (){}
+    
+    
+    
+    
 
     public String getAddress() {
         return address;
@@ -28,8 +45,6 @@ public class Client {
         this.address = address;
     }
 
-    private String telephone;
-
     public String getTelephone() {
         return telephone;
     }
@@ -37,7 +52,6 @@ public class Client {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-
 
     public String getName() {
         return name;
@@ -47,23 +61,6 @@ public class Client {
         this.name = name;
     }
 
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
-
-
-    public Client(int personnumber, int PIN) {
-        this.personnumber = personnumber;
-        this.PIN = PIN;
-    }
-    
-    
-
     public int getPIN() {
         return PIN;
     }
@@ -72,7 +69,6 @@ public class Client {
         this.PIN = PIN;
     }
 
-
     public int getPersonnumber() {
         return personnumber;
     }
@@ -80,10 +76,37 @@ public class Client {
     public void setPersonnumber(int personnumber) {
         this.personnumber = personnumber;
     }
-
    
     public String ClientInfo() {
         return  "personnumber=" + personnumber + ", name=" + name + ", address=" + address + ", telephone=" + telephone ;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> aClients) {
+        clients = aClients;
+    }
+
+    public void printClients (){
+        for (Client c : clients){
+            System.out.println(c.getId() + ", " + c.getName());
+        }
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     
