@@ -9,6 +9,7 @@ import bankomat.model.AccountHistory;
 import bankomat.model.Client;
 import bankomat.model.Employee;
 import bankomat.model.Loan;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -126,8 +127,18 @@ public class Controller {
    }
    
    public void setLoanRate(Employee e,Client c,Loan l,double rate){
-       
+       repo.callSetLoanRate(e.getId(), c.getId(), l.getId(), rate);
    }
    
-   public void 
+   public double showVinstOfLoan(Loan l){
+       return repo.callVinstOfLoan(l.getId());
+   }
+   
+   public double showPayOffMonth(Loan l){
+       return repo.callPayOffMonth(l.getId());
+   }
+   
+   public int caculatePeriod(String datefram,String dateto){
+       
+   }
 }
