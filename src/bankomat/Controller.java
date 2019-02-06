@@ -42,6 +42,21 @@ public class Controller {
        return null;
    } 
    
+//   public Client checkLogin(int personnumber, int pin){
+//       int id=repo.getClientIdByPersonnummerAndPIN(personnumber, pin);
+//       List<Client> clients=repo.getAllClients();
+//       for(Client c:clients){
+//           if(id==c.getId()){
+//                                            
+//            return c;
+//               
+//           }
+//           else
+//              JOptionPane.showMessageDialog(null,"User not Registered.","Login Error",JOptionPane.ERROR_MESSAGE); 
+//       }
+//       return null;
+//   }
+   
    
    public List<Account> loadAccountsforClient(Client c){
        List<Account> accountsofClient=repo.getAllAccounts().stream().filter(a->a.getClientID()==c.getId()).
@@ -49,9 +64,9 @@ public class Controller {
        return accountsofClient;
    }
    
-   public void clientWithdraw(Client c,int accountID,int amount){
-       repo.callClientWithdraw(c.getId(), accountID, amount);
-   }
+//   public void clientWithdraw(Client c,int accountID,int amount){
+//       repo.callClientWithdraw(c.getId(), accountID, amount);
+//   }
    
    public List<Loan> loadLoansforClient(Client c){
        List<Loan> loansofClient=repo.getAllLoans().stream().filter(a->a.getClientID()==c.getId()).
