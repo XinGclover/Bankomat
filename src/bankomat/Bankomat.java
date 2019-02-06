@@ -57,9 +57,16 @@ public class Bankomat {
         System.out.println("\nHandleAccounts:");
         handleAccount.printHandleAccount();
         
-        
+        System.out.println("\nprintAccountTest:");
+       Account aTest;
+       aTest = handleAccount.getAccountByAccountID(0);
+       System.out.println(aTest.getId() + ", " + aTest.getBalance());
 
-
+        System.out.println("\nprintClientTest:");
+       Client cTest;
+       cTest = handleAccount.getClientByClientID(0);
+       System.out.println(cTest.getId() + ", " + cTest.getName());
+       
     }
 
 }

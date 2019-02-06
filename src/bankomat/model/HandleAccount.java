@@ -150,6 +150,16 @@ date datetime NOT NULL,
         }
     }
 
-    
+   public Account getAccountByAccountID(int accountId){
+       Account account = new Account();
+       return account.getAccounts().get(accountId);
+   }
+   
+   //     private int employeeId;
+   //    private int clientId;
+   public Client getClientByClientID(int clientId){
+       Client client = new Client();
+       return client.getClients().get(clientId);
+   }
     
 }
