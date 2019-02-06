@@ -261,6 +261,12 @@ public class ClientSystem extends javax.swing.JPanel {
 
         jTabbedPane2.addTab("Loan Details", jPanel3);
 
+        jAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAccountsActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Switch Account");
 
         jLabel7.setText("Transcation History showing for Accountnumber ");
@@ -401,6 +407,13 @@ public class ClientSystem extends javax.swing.JPanel {
        // jAccounts.getSelectedItem().toString(); 
         accountHistory.getNumber();       // TODO add your handling code here:
     }//GEN-LAST:event_accountIDAncestorAdded
+
+    private void jAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAccountsActionPerformed
+        for(Account a:currentaccounts){
+            jAccounts.addItem(String.valueOf(a.getNumber()));
+        }
+        jAccounts.setSelectedIndex(-1);// TODO add your handling code here:
+    }//GEN-LAST:event_jAccountsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

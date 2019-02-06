@@ -38,7 +38,7 @@ public class Repository {
          return clients;
      }
      
-     public List<Account> getAllAccount(){
+     public List<Account> getAllAccounts(){
          List<Account> accounts = new ArrayList<>();
          return accounts;
      }
@@ -69,5 +69,38 @@ public class Repository {
      public void callUpdateInfo(int clientID,int PIN,String name,String address,String telephont){
          
      }
+     
+     public void callDeleteClient(int employeeID, int clientID){
+         
+     }
+     
+     public void callAssignAccount(int employeeID, int clientID, int AccountNumber){
+         
+     }
+     
+     public void callEndAccount(int employeeID, int clientID, int accountID){
+         
+     }
+     
+     public void callDeposit(int employeeID, int clientID,int accountID, int amount){
+         
+     }
+     
+     public void callWithdraw(int employeeID, int clientID,int accountID, int amount){
+         
+     }
+     
+     public void callSetAccountRate(int employeeID, int clientID,int accountID, double rate){
+         
+     }
+     
+     public void callGrantLoan(int employeeID, int clientID,int loanID){
+         
+     }
+     
+     public void callSetLoanRate(int employeeID, int clientID,int loanID, double rate){
+         
+     }
+     
      
 }

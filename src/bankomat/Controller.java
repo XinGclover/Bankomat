@@ -42,7 +42,7 @@ public class Controller {
    
    
    public List<Account> loadAccountsforClient(Client c){
-       List<Account> accountsofClient=repo.getAllAccount().stream().filter(a->a.getClientID()==c.getId()).
+       List<Account> accountsofClient=repo.getAllAccounts().stream().filter(a->a.getClientID()==c.getId()).
                collect(Collectors.toList());
        return accountsofClient;
    }
@@ -92,8 +92,35 @@ public class Controller {
        repo.callCreateClient(e.getId(), c.getPersonnumber());
    }
    
+   public void deleteClient(Employee e,Client c){
+       repo.callDeleteClient(e.getId(), c.getId());
+   }
+   
    public void updateInfo(Client c,int PIN,String name,String address,String telephont){
        repo.callUpdateInfo(c.getId(), PIN, name, address, telephont);
    }
    
+   public void assignAccount(Employee e,Client c,int accountNumber){
+       repo.callAssignAccount(e.getId(), c.getId(), accountNumber);
+   }
+   
+   public void endAccount(Employee e,Client c,Account a){
+       
+   }
+   
+   public void depositAmount(Employee e,Client c,Account a,int amount){
+       repo.callDeposit(e.getId(), c.getId(), a.getId(), amount);
+   }
+   
+   public void withdrawAmount(Employee e,Client c,Account a,int amount){
+       repo.callWithdraw(e.getId(), c.getId(), a.getId(), amount);
+   }
+   
+   public void setAccountRate(Employee e,Client c,Account a,double rate){
+       repo.callSetAccountRate(e.getId(), c.getId(), a.getId(), rate);
+   }
+   
+   public void grantLoan(Employee e,Client c,Loan l){
+       
+   }
 }
