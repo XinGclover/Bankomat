@@ -7,7 +7,6 @@ package bankomat.view;
 
 import bankomat.Controller;
 import bankomat.model.Account;
-import bankomat.model.AccountHistory;
 import bankomat.model.Client;
 import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
@@ -416,6 +415,7 @@ public class ClientSystem extends javax.swing.JPanel {
         jAccounts.setSelectedIndex(-1);// TODO add your handling code here:
     }//GEN-LAST:event_jAccountsActionPerformed
 
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accountID;

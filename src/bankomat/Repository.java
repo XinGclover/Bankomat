@@ -109,8 +109,7 @@ public class Repository {
                 } else
                     avsluta = false;
                 
-                account = new Account(rs.getInt("idKonto"), rs.getInt("number"),
-                        rs.getInt("kundId"), rs.getInt("saldo"), 
+                account = new Account(rs.getInt("idKonto"), rs.getInt("kundId"), rs.getInt("number"),rs.getInt("saldo"), 
                         rs.getDouble("sparaRantesats"), avsluta);
                 accounts.add(account);
             }
@@ -220,7 +219,23 @@ date datetime NOT NULL,
         return historyOfAccounts;
     }
     
-    
+    public void callClientWithdraw(int clientID, int accountID, int amount){
+        ResultSet rs =null;
+        String query="call ClientWithdrawCash( ?, ?,? ); ";
+                       
+        try (Connection con = DriverManager.getConnection(p.getProperty("connectionString"),
+                             p.getProperty("name"),
+                             p.getProperty("password"));
+            PreparedStatement stmt = con.prepareStatement(query);){
+            stmt.setInt(1, clientID);
+            stmt.setInt(2, accountID);
+            stmt.setInt(3,amount);
+            rs = stmt.executeQuery();
+            }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     
     
     

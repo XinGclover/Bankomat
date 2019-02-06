@@ -164,7 +164,7 @@ date datetime NOT NULL,
 
     
     public String Info() {
-        return "HandleAccount{" + "depositAmount=" + depositAmount + ", withdrawalAmount=" + withdrawalAmount + ", rate=" + rate + ", created=" + created + ", creationDate=" + creationDate + ", closedAccount=" + closedAccount + ", employeeId=" + employeeId + '}';
+        return "depositAmount=" + depositAmount + ", withdrawalAmount=" + withdrawalAmount + ", rate=" + rate + ", created=" + created + ", creationDate=" + creationDate ;
     }
    
    

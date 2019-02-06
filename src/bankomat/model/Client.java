@@ -33,7 +33,9 @@ public class Client {
     
     public Client (){}
     
-    
+    public Client(int id){
+        this.id=id;
+    }
     
     
 

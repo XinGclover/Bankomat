@@ -70,16 +70,12 @@ public class Account {
         return  "number=" + number + ", balance=" + balance + ", rate=" + rate ;
     }
 
-    /**
-     * @return the avsluta
-     */
+    
     public boolean getAvsluta() {
         return avsluta;
     }
 
-    /**
-     * @param avsluta the avsluta to set
-     */
+    
     public void setAvsluta(boolean avsluta) {
         this.avsluta = avsluta;
     }

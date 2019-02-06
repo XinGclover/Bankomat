@@ -26,47 +26,31 @@ public class Controller {
    Repository repo= new Repository(); 
    
    
-   public Client checkLogin (String usernumber, String pin){
+   public Client checkLogin (int usernumber, int pin){
       List<Client> clients=repo.getAllClients();
        for(Client c:clients){
-           if(usernumber.equals(c.getPersonnumber())){
-               if(pin.equals(c.getPIN())){                                
+           if(usernumber==c.getPersonnumber()){
+               if(pin==c.getPIN()){                                
                    return c;
-               }
-               else
-                   JOptionPane.showMessageDialog(null,"Password Incorrect.","Login Error",JOptionPane.ERROR_MESSAGE);
-           }
+               }              
            else
-              JOptionPane.showMessageDialog(null,"User not Registered.","Login Error",JOptionPane.ERROR_MESSAGE); 
+              JOptionPane.showMessageDialog(null,"Invalid Login.","Login Error",JOptionPane.ERROR_MESSAGE); 
+           }
        }
        return null;
    } 
-   
-//   public Client checkLogin(int personnumber, int pin){
-//       int id=repo.getClientIdByPersonnummerAndPIN(personnumber, pin);
-//       List<Client> clients=repo.getAllClients();
-//       for(Client c:clients){
-//           if(id==c.getId()){
-//                                            
-//            return c;
-//               
-//           }
-//           else
-//              JOptionPane.showMessageDialog(null,"User not Registered.","Login Error",JOptionPane.ERROR_MESSAGE); 
-//       }
-//       return null;
-//   }
-   
+     
    
    public List<Account> loadAccountsforClient(Client c){
-       List<Account> accountsofClient=repo.getAllAccounts().stream().filter(a->a.getClientID()==c.getId()).
+       List<Account> accountsofClient=repo.getAllAccounts().stream().
+               filter(a->a.getClientID()==c.getId()&&a.getAvsluta()==false).
                collect(Collectors.toList());
        return accountsofClient;
    }
    
-//   public void clientWithdraw(Client c,int accountID,int amount){
-//       repo.callClientWithdraw(c.getId(), accountID, amount);
-//   }
+   public void clientWithdraw(Client c,int accountID,int amount){
+       repo.callClientWithdraw(c.getId(), accountID, amount);
+   }
    
    public List<Loan> loadLoansforClient(Client c){
        List<Loan> loansofClient=repo.getAllLoans().stream().filter(a->a.getClientID()==c.getId()).

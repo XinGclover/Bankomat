@@ -36,14 +36,25 @@ public class Bankomat {
         Account account = new Account();
         Loan loan = new Loan();
         HandleAccount handleAccount = new HandleAccount();
+        Controller con=new Controller();
         
         repositoryTest rt=new repositoryTest();
 //        System.out.println(rt.getAllCustomers().size());
-        System.out.println(rt.getAllClients().size());
-        System.out.println(rep.getAllAccounts().size());
-        System.out.println(rep.getAllHandleAccounts().size());
-        System.out.println(rep.getAllLoans().size());
-                
+//        System.out.println(rt.getAllClients().size());
+//        System.out.println(rep.getAllAccounts().size());
+//        System.out.println(rep.getAllHandleAccounts().size());
+//        System.out.println(rep.getAllLoans().size());
+//        rep.callClientWithdraw(1, 3, 300);
+
+//        System.out.println(rep.getAllClients().get(0).getPersonnumber());
+//        System.out.println(rep.getAllAccounts().size());
+//        System.out.println(rep.getAllAccounts().get(0).getClientID());
+        
+         System.out.println(con.loadAccountsforClient(new Client(3)).size()); 
+//         System.out.println(con.loadLoansforClient(new Client(1)).get(0).loanInfo());
+//          System.out.println(rep.getAllClients().get(0).ClientInfo());
+//          System.out.println(rep.getAllLoans().size());
+         
 //        rep.getAllAccounts();
 //        System.out.println("\nAccounts:");
 //        account.printAccounts();
