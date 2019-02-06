@@ -121,6 +121,13 @@ public class Controller {
    }
    
    public void grantLoan(Employee e,Client c,Loan l){
+       repo.callGrantLoan(e.getId(), c.getId(), l.getId());
        
    }
+   
+   public void setLoanRate(Employee e,Client c,Loan l,double rate){
+       
+   }
+   
+   public void 
 }

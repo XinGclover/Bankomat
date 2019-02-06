@@ -102,5 +102,11 @@ public class Repository {
          
      }
      
+     public double callPayOffMonth(int loanID){
+         
+     }
      
+     public double callVinstOfLoan(int loanID){
+         
+     }
 }
