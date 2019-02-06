@@ -3,20 +3,22 @@ package bankomat;
 
 import bankomat.model.Account;
 import bankomat.model.Client;
+import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 
 public class Repository {
@@ -64,9 +66,9 @@ public class Repository {
     }
     
 
-    public Map<Integer, Client> getAllClients(){
+    public List<Client> getAllClients(){
         Client client = new Client();
-        Map<Integer, Client> clients = new HashMap<Integer, Client>();
+        List<Client> clients = new ArrayList();
         try(Connection con = DriverManager.getConnection(p.getProperty("connectionString"), 
             p.getProperty("name"), p.getProperty("password"));
             Statement stmt = con.createStatement();){
@@ -75,10 +77,9 @@ public class Repository {
                     + "pin, namn, address, telefon from Kund");
             
             while(rs.next()){
-                int id = rs.getInt("idKund");
-                client = new Client(rs.getInt("personnummer"), rs.getInt("pin"),
+                client = new Client(rs.getInt("idKund"), rs.getInt("personnummer"), rs.getInt("pin"),
                         rs.getString("namn"), rs.getString("address"), rs.getString("telefon"));
-                clients.put(id,client);
+                clients.add(client);
             }
         }
         catch(Exception e){
@@ -89,9 +90,9 @@ public class Repository {
     }
     
     
-    public Map<Integer, Account> getAllAccounts(){
+    public List<Account> getAllAccounts(){
         Account account = new Account();
-        Map<Integer, Account> accounts = new HashMap<Integer, Account>();
+        List<Account> accounts = new ArrayList();
         boolean avsluta;
         
         try(Connection con = DriverManager.getConnection(p.getProperty("connectionString"), 
@@ -102,16 +103,15 @@ public class Repository {
                     + "kundId, saldo, sparaRantesats, avsluta from Konto");
             
             while(rs.next()){
-                int id = rs.getInt("idKonto");
                 if (rs.getInt("avsluta") == 1){
                     avsluta = true;
                 } else
                     avsluta = false;
                 
-                account = new Account(rs.getInt("number"),
+                account = new Account(rs.getInt("idKonto"), rs.getInt("number"),
                         rs.getInt("kundId"), rs.getInt("saldo"), 
                         rs.getDouble("sparaRantesats"), avsluta);
-                accounts.put(id,account);
+                accounts.add(account);
             }
         }
         catch(Exception e){
@@ -122,10 +122,11 @@ public class Repository {
     }
     
     
-    public Map<Integer, Loan> getAllLoans(){
+    public List<Loan> getAllLoans(){
         Loan loan = new Loan();
-        Map<Integer, Loan> loans = new HashMap<Integer, Loan>();
+        List<Loan> loans = new ArrayList();
         boolean bevilja;
+        //
         
         try(Connection con = DriverManager.getConnection(p.getProperty("connectionString"), 
             p.getProperty("name"), p.getProperty("password"));
@@ -135,16 +136,16 @@ public class Repository {
                     + "kundId, lanAntal, lanRantesats, betalplan, bevilja from Lan");
             
             while(rs.next()){
-                int id = rs.getInt("idLan");
+
                 if (rs.getInt("bevilja") == 1){
                     bevilja = true;
                 } else
                     bevilja = false;
                 
-                loan = new Loan(rs.getInt("LanNumber"),
+                loan = new Loan(rs.getInt("idLan"), rs.getInt("LanNumber"),
                         rs.getInt("kundId"), rs.getInt("lanAntal"), 
                         rs.getDouble("lanRantesats"), rs.getDate("betalplan"), bevilja);
-                loans.put(id,loan);
+                loans.add(loan);
             }
         }
         catch(Exception e){
@@ -153,4 +154,73 @@ public class Repository {
         loan.setLoans(loans);
         return loans;
     }
+    
+    /*
+    CREATE TABLE hanteraKonto (
+idhantering int(11) NOT NULL AUTO_INCREMENT,
+kontoId int(11) NOT NULL,
+sattainsaldo int(11) DEFAULT NULL,
+tautsaldo int(11) DEFAULT NULL,
+rantesats decimal(3,1) DEFAULT NULL,
+skapa tinyint(4) DEFAULT NULL,
+avsluta tinyint(4) DEFAULT NULL,
+anstalldId int(11) DEFAULT NULL,
+kundId int(11) DEFAULT NULL,
+date datetime NOT NULL,
+    */
+    
+    public List<HandleAccount> getAllHandleAccounts(){
+        HandleAccount handleAccount = new HandleAccount();
+        List<HandleAccount> historyOfAccounts = new ArrayList();
+        boolean avsluta;
+        boolean skapa;
+        
+        try(Connection con = DriverManager.getConnection(p.getProperty("connectionString"), 
+            p.getProperty("name"), p.getProperty("password"));
+            Statement stmt = con.createStatement();){
+            
+            ResultSet rs = stmt.executeQuery("select idhantering, kontoId, "
+                    + "sattainsaldo, tautsaldo, rantesats, skapa, avsluta, "
+                    + "anstalldId, kundId, date from hanteraKonto");
+            
+            while(rs.next()){
+                if (rs.getInt("avsluta") == 1){
+                    avsluta = true;
+                } else
+                    avsluta = false;
+
+                if (rs.getInt("skapa") == 1){
+                    skapa = true;
+                } else
+                    skapa = false;
+                
+                // (int id, int accountId, int depositAmount, int withdrawalAmount, 
+            // double rate, Date creationDate, boolean closedAccount,
+            // int employeeId, int clientId)
+                
+                handleAccount = new HandleAccount(rs.getInt("idhantering"), 
+                        rs.getInt("kontoId"), 
+                        rs.getInt("sattainsaldo"),
+                        rs.getInt("tautsaldo"),
+                        rs.getDouble("rantesats"),
+                        skapa,
+                        rs.getDate("date"),
+                        avsluta,
+                        rs.getInt("anstalldId"),
+                        rs.getInt("kundId"));
+                
+                historyOfAccounts.add(handleAccount);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        handleAccount.setHistoryOfAccounts(historyOfAccounts);
+        return historyOfAccounts;
+    }
+    
+    
+    
+    
+    
 }

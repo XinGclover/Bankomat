@@ -2,21 +2,25 @@
 
 package bankomat.model;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Loan {
    
+    private int id;
     private int number;
     private int amount;
     private double rate;
     private int clientID;
     private Date paymentPlan;
     private boolean granted;
-    private static Map<Integer, Loan> loans;
+    private static List<Loan> loans;
     
-    public Loan (int number, int clientID, int amount, double rate , Date paymentPlan, boolean granted){
+    public Loan (int id, int number, int clientID, int amount, double rate , Date paymentPlan, boolean granted){
+        this.id = id;
         this.number = number;
         this.clientID = clientID;
         this.amount = amount;
@@ -103,24 +107,37 @@ public class Loan {
     }
 
     /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
      * @return the loans
      */
-    public Map<Integer, Loan> getLoans() {
+    public List<Loan> getLoans() {
         return loans;
     }
 
     /**
      * @param aLoans the loans to set
      */
-    public void setLoans(Map<Integer, Loan> aLoans) {
+    public void setLoans(List<Loan> aLoans) {
         loans = aLoans;
     }
- 
-    public void printLoans(){
-        String content = this.loans.entrySet().stream().map(e -> e.getKey() 
-                + " = " + e.getValue().getAmount()
-                + "kr, ränta: " + e.getValue().getRate()).collect(Collectors.joining(".\n"));
-        System.out.println(content);     
+
+    public void printLoans (){
+        for (Loan l : loans){
+            System.out.println(l.getId() + ", Amount: " + l.getAmount());
+        }
     }
     
     

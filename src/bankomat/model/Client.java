@@ -2,27 +2,23 @@
 
 package bankomat.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Client {
     
+    private int id;
     private int personnumber;
-    
     private int PIN;
-    
     private String name;
-    
     private String address;
-    
     private String telephone;
+    private static List<Client> clients;
     
-    private static Map<Integer, Client> clients;
     
-    
-    public Client (int personnumber, int PIN, String name, String address, String telephone){
+    public Client (int id, int personnumber, int PIN, String name, String address, String telephone){
+        this.id = id;
         this.personnumber = personnumber;
         this.PIN = PIN;
         this.name = name;
@@ -85,27 +81,33 @@ public class Client {
         return  "personnumber=" + personnumber + ", name=" + name + ", address=" + address + ", telephone=" + telephone ;
     }
 
-    /**
-     * @return the clients
-     */
-    public Map<Integer, Client> getClients() {
+    public List<Client> getClients() {
         return clients;
     }
 
-    /**
-     * @param aClients the clients to set
-     */
-    public void setClients(Map<Integer, Client> aClients) {
+    public void setClients(List<Client> aClients) {
         clients = aClients;
     }
-    
-    public void printClients(){
-        String content = this.clients.entrySet().stream().map(e -> e.getKey() 
-                + " = " + e.getValue().getName()
-                + ". Tel: " + e.getValue().getTelephone()).collect(Collectors.joining(".\n"));
-        System.out.println(content);
-        // System.out.println(Arrays.toString(this.clients.entrySet().toArray()));
-        //clients.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);       
+
+    public void printClients (){
+        for (Client c : clients){
+            System.out.println(c.getId() + ", " + c.getName());
+        }
     }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
     
 }

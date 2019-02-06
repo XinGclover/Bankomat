@@ -2,12 +2,14 @@
 
 package bankomat.model;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 
 public class Account {
    
+    private int id;
     private int clientID;
     
     private int number;
@@ -18,10 +20,11 @@ public class Account {
     
     private boolean avsluta;  // true = avslutat konto
     
-    private static Map<Integer, Account> accounts;
+    private static List<Account> accounts;
             
     
-    public Account (int clientID, int number, int balance, double rate, boolean avsluta){
+    public Account (int id, int clientID, int number, int balance, double rate, boolean avsluta){
+        this.id = id;
         this.clientID = clientID;
         this.number = number;
         this.balance = balance;
@@ -82,25 +85,39 @@ public class Account {
     }
 
     /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
      * @return the accounts
      */
-    public Map<Integer, Account> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 
     /**
-     * @param accounts the accounts to set
+     * @param aAccounts the accounts to set
      */
-    public void setAccounts(Map<Integer, Account> accounts) {
-        this.accounts = accounts;
+    public void setAccounts(List<Account> aAccounts) {
+        accounts = aAccounts;
     }
- 
-    public void printAccounts(){
-        String content = this.accounts.entrySet().stream().map(e -> e.getKey() 
-                + " = " + e.getValue().getBalance()
-                + "kr, ränta: " + e.getValue().getRate()).collect(Collectors.joining(".\n"));
-        System.out.println(content);     
+    
+    public void printAccounts (){
+        for (Account a : accounts){
+            System.out.println(a.getId() + ", Balance: " + a.getBalance());
+        }
     }
+
     
     
 }
