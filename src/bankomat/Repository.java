@@ -2,7 +2,7 @@ package bankomat;
 
 
 import bankomat.model.Account;
-import bankomat.model.AccountHistory;
+
 import bankomat.model.Client;
 import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
