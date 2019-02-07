@@ -9,6 +9,9 @@ import bankomat.model.AccountHistory;
 import bankomat.model.Client;
 import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -57,24 +60,32 @@ public class Controller {
        return loansofClient;
    }
    
-   public List<HandleAccount> loadHistorysforAccount(Account a){
-       List<HandleAccount> historysofAccount= repo.getAllHandleAccounts().stream().filter(s->s.getAccountId()==a.getId()).
-               collect(Collectors.toList());
-       return historysofAccount;
-   }
    
-//   public Employee EmployeeLogin (String number){
-//      List<Employee> employees=repo.getAllEmployees();
-//       for(Employee e:employees){
-//           if(number.equals(e.getNumber())){
-//              return e;  
-//           }
-//           else
-//               JOptionPane.showMessageDialog(null,"Invalid Number.");
-//           }          
-//       return null;
-//   } 
-//   
+   
+   public List<HandleAccount> loadHistorysforAccount(Account a, String stringStartDate, String stringEndDate){
+       
+       LocalDate startDate = LocalDate.parse(stringStartDate);
+       LocalDate endDate = LocalDate.parse(stringEndDate);
+       
+       int accountId = a.getId();
+       HandleAccount ha = new HandleAccount();
+       List<HandleAccount> selectedDatesOfHandleAccount = new ArrayList();
+       
+       for (int i = 0; i < ha.getHistoryOfAccounts().size(); i++) {
+           // om kontoID stämmer
+           if (ha.getHistoryOfAccounts().get(i).getAccountId() == accountId){
+                // Om datumet är mellan startDate och endDate, eller är lika med startDate eller endDate.
+                if(((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().isAfter(startDate)) && 
+                        ((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().isBefore(endDate)) ||
+                        ((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().equals(startDate)) ||
+                        ((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().equals(endDate))
+                        ){
+                    selectedDatesOfHandleAccount.add(ha.getHistoryOfAccounts().get(i));
+                }
+           }
+       }
+       return selectedDatesOfHandleAccount;
+   }
    
    public Client checkClientNumber(String personnumber){
        List<Client> clients=repo.getAllClients();

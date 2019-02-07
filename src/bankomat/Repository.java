@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -154,20 +156,7 @@ public class Repository {
         loan.setLoans(loans);
         return loans;
     }
-    
-    /*
-    CREATE TABLE hanteraKonto (
-idhantering int(11) NOT NULL AUTO_INCREMENT,
-kontoId int(11) NOT NULL,
-sattainsaldo int(11) DEFAULT NULL,
-tautsaldo int(11) DEFAULT NULL,
-rantesats decimal(3,1) DEFAULT NULL,
-skapa tinyint(4) DEFAULT NULL,
-avsluta tinyint(4) DEFAULT NULL,
-anstalldId int(11) DEFAULT NULL,
-kundId int(11) DEFAULT NULL,
-date datetime NOT NULL,
-    */
+
     
     public List<HandleAccount> getAllHandleAccounts(){
         HandleAccount handleAccount = new HandleAccount();
@@ -194,9 +183,8 @@ date datetime NOT NULL,
                 } else
                     skapa = false;
                 
-                // (int id, int accountId, int depositAmount, int withdrawalAmount, 
-            // double rate, Date creationDate, boolean closedAccount,
-            // int employeeId, int clientId)
+                String s = rs.getString("date");
+                LocalDateTime ldt = fromStringToLocalDateTime(rs.getString("date"));
                 
                 handleAccount = new HandleAccount(rs.getInt("idhantering"), 
                         rs.getInt("kontoId"), 
@@ -204,7 +192,7 @@ date datetime NOT NULL,
                         rs.getInt("tautsaldo"),
                         rs.getDouble("rantesats"),
                         skapa,
-                        rs.getDate("date"),
+                        ldt,
                         avsluta,
                         rs.getInt("anstalldId"),
                         rs.getInt("kundId"));
@@ -237,6 +225,11 @@ date datetime NOT NULL,
         }
     }
     
+    
+    public LocalDateTime fromStringToLocalDateTime(String date){
+        String sdt = date.replace(" ", "T");
+        return LocalDateTime.parse(sdt);
+    }
     
     
 }
