@@ -154,12 +154,15 @@ date datetime NOT NULL,
        Account account = new Account();
        return account.getAccounts().get(accountId);
    }
-   
-   //     private int employeeId;
-   //    private int clientId;
+
    public Client getClientByClientID(int clientId){
        Client client = new Client();
        return client.getClients().get(clientId);
    }
     
+   public Employee getEmployeeByEmployeeID(int employeeId){
+       Employee employee = new Employee();
+       return employee.getEmployees().get(employeeId);
+   }
+   
 }
