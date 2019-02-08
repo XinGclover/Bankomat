@@ -33,7 +33,7 @@ date datetime NOT NULL,
     private int withdrawalAmount;
     private double rate;
     private boolean created;
-    private Date creationDate;
+    private String creationDate;
     private boolean closedAccount;  // true = kontot avslutat
     private int employeeId;
     private int clientId;
@@ -41,7 +41,7 @@ date datetime NOT NULL,
     
     
     public HandleAccount(int id, int accountId, int depositAmount, int withdrawalAmount, 
-            double rate, boolean created, Date creationDate, boolean closedAccount,
+            double rate, boolean created, String creationDate, boolean closedAccount,
             int employeeId, int clientId){
         this.id = id;
         this.accountId = accountId;
@@ -90,11 +90,11 @@ date datetime NOT NULL,
         this.rate = rate;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 

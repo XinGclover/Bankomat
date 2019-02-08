@@ -204,7 +204,7 @@ date datetime NOT NULL,
                         rs.getInt("tautsaldo"),
                         rs.getDouble("rantesats"),
                         skapa,
-                        rs.getDate("date"),
+                        rs.getString("date"),
                         avsluta,
                         rs.getInt("anstalldId"),
                         rs.getInt("kundId"));
