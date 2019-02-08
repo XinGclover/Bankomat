@@ -359,7 +359,7 @@ public class ClientSystem_new extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         accountHistoryIndex=jAccounts.getSelectedIndex();
         accountHistory=currentaccounts.get(accountHistoryIndex); 
-        historylist=con.loadHistorysforAccount(accountHistory);
+        historylist=con.loadHistorysforAccount(accountHistory);       
         DefaultListModel dlm=new DefaultListModel();
         for(HandleAccount ah:historylist){
             dlm.addElement(ah.Info());  //History för a

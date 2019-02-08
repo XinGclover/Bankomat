@@ -5,13 +5,12 @@ Java18-OOJ
 package bankomat;
 
 import bankomat.model.Account;
-
 import bankomat.model.Client;
 import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
-import java.util.LinkedList;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
@@ -32,10 +31,11 @@ public class Controller {
                if(pin==c.getPIN()){                                
                    return c;
                }              
-           else
-              JOptionPane.showMessageDialog(null,"Invalid Login.","Login Error",JOptionPane.ERROR_MESSAGE); 
+          
            }
        }
+       
+       JOptionPane.showMessageDialog(null,"Invalid Login.","Login Error",JOptionPane.ERROR_MESSAGE); 
        return null;
    } 
      
@@ -57,12 +57,36 @@ public class Controller {
        return loansofClient;
    }
    
-//   public List<HandleAccount> loadHistorysforAccount(Account a){
-//       List<HandleAccount> historysofAccount= repo.getAllHandleAccounts().stream().filter(s->s.getAccountId()==a.getId()).
-//               collect(Collectors.toList());
-//       return historysofAccount;
-//   }
    
+   // Ska visa 30 dagar bakåt
+   public List<HandleAccount> loadHistorysforAccount(Account a){
+       
+       repo.getAllHandleAccounts();
+       LocalDate startDate = LocalDate.now().minusDays(30);
+       LocalDate endDate = LocalDate.now();
+       System.out.println("startDate:" + startDate);
+       System.out.println("endDate:" + endDate);
+       
+       
+       int accountId = a.getId();
+       HandleAccount ha = new HandleAccount();
+       List<HandleAccount> selectedDatesOfHandleAccount = new ArrayList();
+       
+       for (int i = 0; i < ha.getHistoryOfAccounts().size(); i++) {
+           // om kontoID stämmer
+           if (ha.getHistoryOfAccounts().get(i).getAccountId() == accountId){
+                // Om datumet är mellan startDate och endDate, eller är lika med startDate eller endDate.
+                if(((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().isAfter(startDate)) && 
+                        ((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().isBefore(endDate)) ||
+                        ((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().equals(startDate)) ||
+                        ((ha.getHistoryOfAccounts().get(i).getCreationDate()).toLocalDate().equals(endDate))
+                        ){
+                    selectedDatesOfHandleAccount.add(ha.getHistoryOfAccounts().get(i));
+                }
+           }
+       }
+       return selectedDatesOfHandleAccount;
+   }
    
    public Client checkClientNumber(String personnumber){
        List<Client> clients=repo.getAllClients();
@@ -70,18 +94,10 @@ public class Controller {
            if(personnumber.equals(c.getPersonnumber())){
                return c;
            }
-           
        }
        return null;  
-   
    }
    
-    public List<HandleAccount> loadHistorysforAccount(Account a){
-       List<HandleAccount> historysofAccount= repo.getAllHandleAccounts().stream().filter(s->s.getAccountId()==a.getId()).
-               collect(Collectors.toList());
-       for(HandleAccount ha:historysofAccount){
-           
-       }
-   }
+    
    
 }

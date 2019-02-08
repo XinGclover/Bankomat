@@ -67,7 +67,7 @@ public class Account {
     }
 
     public String AccountInfo() {
-        return  "number=" + number + ", balance=" + balance + ", rate=" + rate ;
+        return  "number=" + number + "\n"+"balance=" + balance + "\n"+ "rate=" + rate+"\n"+"end account"+avsluta ;
     }
 
     

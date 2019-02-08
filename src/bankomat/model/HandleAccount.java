@@ -4,28 +4,12 @@
 
 package bankomat.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
 public class HandleAccount {
-    
-        /*
-    CREATE TABLE hanteraKonto (
-idhantering int(11) NOT NULL AUTO_INCREMENT,
-kontoId int(11) NOT NULL,
-sattainsaldo int(11) DEFAULT NULL,
-tautsaldo int(11) DEFAULT NULL,
-rantesats decimal(3,1) DEFAULT NULL,
-skapa tinyint(4) DEFAULT NULL,
-avsluta tinyint(4) DEFAULT NULL,
-anstalldId int(11) DEFAULT NULL,
-kundId int(11) DEFAULT NULL,
-date datetime NOT NULL,
-    */
-    
-    // ! skapa metoder för att ta ut rätt account, anställd, kund från id:na
     
     private int id;
     private int accountId;
@@ -33,7 +17,7 @@ date datetime NOT NULL,
     private int withdrawalAmount;
     private double rate;
     private boolean created;
-    private String creationDate;
+    private LocalDateTime creationDate;
     private boolean closedAccount;  // true = kontot avslutat
     private int employeeId;
     private int clientId;
@@ -41,7 +25,7 @@ date datetime NOT NULL,
     
     
     public HandleAccount(int id, int accountId, int depositAmount, int withdrawalAmount, 
-            double rate, boolean created, String creationDate, boolean closedAccount,
+            double rate, boolean created, LocalDateTime creationDate, boolean closedAccount,
             int employeeId, int clientId){
         this.id = id;
         this.accountId = accountId;
@@ -90,11 +74,11 @@ date datetime NOT NULL,
         this.rate = rate;
     }
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -164,7 +148,21 @@ date datetime NOT NULL,
 
     
     public String Info() {
-        return "depositAmount=" + depositAmount + ", withdrawalAmount=" + withdrawalAmount + ", rate=" + rate + ", created=" + created + ", creationDate=" + creationDate ;
+        return "depositAmount=" + depositAmount + ", withdrawalAmount=" + withdrawalAmount + ", rate=" + rate + ", created=" + isCreated() + ", creationDate=" + creationDate ;
+    }
+
+    /**
+     * @return the created
+     */
+    public boolean isCreated() {
+        return created;
+    }
+
+    /**
+     * @param created the created to set
+     */
+    public void setCreated(boolean created) {
+        this.created = created;
     }
    
    
