@@ -9,7 +9,6 @@ import bankomat.model.Account;
 import bankomat.model.Client;
 import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +84,7 @@ public class Bankomat {
         System.out.println("\ndatumPeriod:");
         Account testAccount = account.getAccounts().get(0);
         List<HandleAccount> selectedDatesOfHandleAccount = new ArrayList();
-        selectedDatesOfHandleAccount = con.loadHistorysforAccount(testAccount, "2019-01-09", "2019-02-03");
+        selectedDatesOfHandleAccount = con.loadHistorysforAccount(testAccount);
         System.out.println("Antal transaktioner: " + selectedDatesOfHandleAccount.size());
 
     }

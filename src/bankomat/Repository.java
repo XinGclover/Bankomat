@@ -183,7 +183,7 @@ public class Repository {
                 } else
                     skapa = false;
                 
-                String s = rs.getString("date");
+                // String s = rs.getString("date");
                 LocalDateTime ldt = fromStringToLocalDateTime(rs.getString("date"));
                 
                 handleAccount = new HandleAccount(rs.getInt("idhantering"), 

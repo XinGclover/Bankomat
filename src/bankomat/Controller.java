@@ -5,16 +5,12 @@ Java18-OOJ
 package bankomat;
 
 import bankomat.model.Account;
-import bankomat.model.AccountHistory;
 import bankomat.model.Client;
 import bankomat.model.HandleAccount;
 import bankomat.model.Loan;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
@@ -61,11 +57,14 @@ public class Controller {
    }
    
    
-   
-   public List<HandleAccount> loadHistorysforAccount(Account a, String stringStartDate, String stringEndDate){
+   // Ska visa 30 dagar bakåt
+   public List<HandleAccount> loadHistorysforAccount(Account a){
        
-       LocalDate startDate = LocalDate.parse(stringStartDate);
-       LocalDate endDate = LocalDate.parse(stringEndDate);
+       LocalDate startDate = LocalDate.now().minusDays(30);
+       LocalDate endDate = LocalDate.now();
+       System.out.println("startDate:" + startDate);
+       System.out.println("endDate:" + endDate);
+       
        
        int accountId = a.getId();
        HandleAccount ha = new HandleAccount();
@@ -93,10 +92,8 @@ public class Controller {
            if(personnumber.equals(c.getPersonnumber())){
                return c;
            }
-           
        }
        return null;  
-   
    }
    
 //   public void createClient(Employee e,Client c){
