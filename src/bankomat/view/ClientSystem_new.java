@@ -12,10 +12,7 @@ import bankomat.model.Loan;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
-/**
- *
- * @author xingao
- */
+
 public class ClientSystem_new extends javax.swing.JFrame {
 
     

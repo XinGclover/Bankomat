@@ -3,15 +3,7 @@ package bankomat.view;
 import bankomat.Controller;
 import bankomat.model.Client;
 
-/*
- *  
-Java18-OOJ
- */
 
-/**
- *
- * @author xingao
- */
 public class ClientLogInGui extends javax.swing.JFrame {
 
     Controller con=new Controller();

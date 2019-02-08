@@ -16,10 +16,6 @@ import javax.swing.JOptionPane;
 
 
 
-/**
- *
- * @author xingao
- */
 public class Controller {
    Repository repo= new Repository(); 
    
